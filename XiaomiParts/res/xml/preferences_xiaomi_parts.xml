@@ -152,34 +152,6 @@
     </PreferenceCategory>
 
     <PreferenceCategory
-        android:key="charging"
-        android:title="@string/smart_charging_main_title">
-
-        <SwitchPreference
-            android:key="smart_charging"
-            android:icon="@drawable/ic_charging_main"
-            android:summary="@string/smart_charging_summary"
-            android:title="@string/smart_charging_title" />
-
-        <com.xiaomi.parts.preferences.SeekBarPreference
-            android:key="seek_bar"
-            android:title="Select charging limit"
-            android:layout="@layout/preference_slider"
-            android:defaultValue="95"
-            android:max="100"
-            android:min="80"
-            android:layout_gravity="center_vertical"
-            android:layout_width="match_parent"/>
-
-        <SwitchPreference
-            android:key="reset_stats"
-            android:icon="@drawable/ic_info_outline_24dp"
-            android:title="@string/reset_stats_title"
-            android:summary="@string/reset_stats_summary" />
-
-    </PreferenceCategory>
-
-    <PreferenceCategory
         app:allowDividerAbove="false"
         android:key="thermal"
         android:layout="@layout/pref_cat"
@@ -236,23 +208,6 @@
             android:layout="@layout/octavi_preference"
             android:title="@string/tcpcongestion_title" />
     </PreferenceCategory>
-
-    <PreferenceCategory
-        android:key="cam"
-        android:title="@string/camera_category">
-
-        <com.xiaomi.parts.preferences.SecureSettingListPreference
-            android:summary="@string/camera_explanation_summary"
-            android:key="camera"
-            android:title="@string/camera_title"
-            android:summaryOn="@string/camera_hal3_summary"
-            android:summaryOff="@string/camera_hal1_summary"
-            android:icon="@drawable/ic_cam"
-            android:defaultValue="0"
-            android:dialogTitle="@string/camera_dialogTitle"
-            android:entries="@array/camera_profiles"
-            android:entryValues="@array/camera_values" />
-</PreferenceCategory>
 
     <PreferenceCategory
     app:allowDividerAbove="false"

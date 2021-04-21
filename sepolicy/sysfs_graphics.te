@@ -1,0 +1,1 @@
+allow system_app sysfs_graphics:dir { search };

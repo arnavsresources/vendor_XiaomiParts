@@ -330,20 +330,4 @@
     <string name="clear_speaker_summary">Play a 30-second audio to clear the speaker</string>
     <string name="clear_speaker_description">Run this feature once or twice if you find that your speaker is lightly blocked by dust. Set media volume to maximum.\n\nIf the speaker is blocked heavily, run this feature 2-5 times while shaking your device with the speaker facing downwards.</string>
 
-    <!-- Charging -->
-    <string name="smart_charging_main_title">Battery</string>
-    <string name="smart_charging_title">Smart Charging</string>
-    <string name="smart_charging_summary">Helps in cooling down &amp; also protects from over charging the device</string>
-    <string name="reset_stats_title">Reset battery stats</string>
-    <string name="reset_stats_summary">Battery stats will get reset when charging limit is reached</string>
-
-    <!-- HAL3 | HAL1 Switch button profiles -->
-    <string name="camera_category">Camera</string>
-    <string name="camera_explanation_summary">HAL3 | HAL1 Switch button.</string>
-    <string name="camera_title">Camera Mode</string>
-    <string name="camera_hal1_summary">HAL1</string>
-    <string name="camera_hal3_summary">HAL3</string>
-    <string name="camera_hal1_toast_title">Selinux set to Hal1!</string>
-    <string name="camera_hal3_toast_title">Selinux set to Hal3!</string>
-    <string name="camera_dialogTitle">Select your HAL camera</string>
 </resources>

@@ -1,0 +1,2 @@
+allow sysfs_corecontrol sysfs_corecontrol:file { write };
+

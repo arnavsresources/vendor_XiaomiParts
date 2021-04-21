@@ -26,7 +26,6 @@ import android.os.Handler;
 import androidx.preference.PreferenceFragment;
 import androidx.preference.PreferenceManager;
 import androidx.preference.SwitchPreference;
-import androidx.preference.TwoStatePreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceCategory;
 import android.content.Context;
@@ -40,11 +39,9 @@ import com.xiaomi.parts.ambient.AmbientGesturePreferenceActivity;
 import com.xiaomi.parts.preferences.CustomSeekBarPreference;
 import com.xiaomi.parts.preferences.SecureSettingListPreference;
 import com.xiaomi.parts.preferences.SecureSettingSwitchPreference;
-import com.xiaomi.parts.preferences.SeekBarPreference;
 import com.xiaomi.parts.preferences.VibratorStrengthPreference;
 import com.xiaomi.parts.SuShell;
 import com.xiaomi.parts.SuTask;
-import com.xiaomi.parts.ModeSwitch.SmartChargingSwitch;
 import com.xiaomi.parts.Fastcharge;
 import com.xiaomi.parts.Touchboost;
 
@@ -112,9 +109,6 @@ public class DeviceSettings extends PreferenceFragment implements
     public static final String PREF_CPUBOOST = "cpuboost";
     public static final String CPUBOOST_SYSTEM_PROPERTY = "persist.cpuboost.profile";
 
-    public static final String PREF_CAMERA = "camera";
-    public static final String CAMERA_SYSTEM_PROPERTY = "persist.camera.profile";
-
     //public static final String PREF_USB_FASTCHARGE = "fastcharge";
     //public static final String USB_FASTCHARGE_PATH = "/sys/kernel/fast_charge/force_fast_charge";
 
@@ -125,9 +119,6 @@ public class DeviceSettings extends PreferenceFragment implements
     private static final String PREF_SELINUX_PERSISTENCE = "selinux_persistence";
 
     private static final String PREF_CLEAR_SPEAKER = "clear_speaker_settings";
-
-    public static final String KEY_CHARGING_SWITCH = "smart_charging";
-    public static final String KEY_RESET_STATS = "reset_stats";
 
     private CustomSeekBarPreference mWhiteTorchBrightness;
     private CustomSeekBarPreference mYellowTorchBrightness;
@@ -154,15 +145,10 @@ public class DeviceSettings extends PreferenceFragment implements
     private SecureSettingSwitchPreference mTouchboost;
     private SecureSettingListPreference mGPUBOOST;
     private SecureSettingListPreference mCPUBOOST;
-    private SecureSettingListPreference mCamera;
-    private static Context mContext;
+     private static Context mContext;
     private SwitchPreference mSelinuxMode;
     private SwitchPreference mSelinuxPersistence;
     private Preference mClearSpeakerPref;
-
-    private static TwoStatePreference mSmartChargingSwitch;
-    public static TwoStatePreference mResetStats;
-    public static SeekBarPreference mSeekBarPreference;
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
@@ -216,11 +202,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mSPECTRUM.setValue(FileUtils.getStringProp(SPECTRUM_SYSTEM_PROPERTY, "0"));
         mSPECTRUM.setSummary(mSPECTRUM.getEntry());
         mSPECTRUM.setOnPreferenceChangeListener(this);
-
-        mCamera = (SecureSettingListPreference) findPreference(PREF_CAMERA);
-        mCamera.setValue(FileUtils.getStringProp(CAMERA_SYSTEM_PROPERTY, "0"));
-        mCamera.setSummary(mCamera.getEntry());
-        mCamera.setOnPreferenceChangeListener(this);
 
         if (FileUtils.fileWritable(BACKLIGHT_DIMMER_PATH)) {
             mBacklightDimmer = (SecureSettingSwitchPreference) findPreference(PREF_BACKLIGHT_DIMMER);
@@ -353,23 +334,6 @@ public class DeviceSettings extends PreferenceFragment implements
         mSelinuxPersistence.setChecked(getContext()
         .getSharedPreferences("selinux_pref", Context.MODE_PRIVATE)
         .contains(PREF_SELINUX_MODE));
-
-        mCamera = (SecureSettingListPreference) findPreference(PREF_CAMERA);
-        mCamera.setValue(FileUtils.getStringProp(CAMERA_SYSTEM_PROPERTY, "0"));
-        mCamera.setSummary(mCamera.getEntry());
-        mCamera.setOnPreferenceChangeListener(this);
-
-        mSmartChargingSwitch = (TwoStatePreference) findPreference(KEY_CHARGING_SWITCH);
-        mSmartChargingSwitch.setChecked(prefs.getBoolean(KEY_CHARGING_SWITCH, false));
-        mSmartChargingSwitch.setOnPreferenceChangeListener(new SmartChargingSwitch(getContext()));
-
-        mResetStats = (TwoStatePreference) findPreference(KEY_RESET_STATS);
-        mResetStats.setChecked(prefs.getBoolean(KEY_RESET_STATS, false));
-        mResetStats.setEnabled(mSmartChargingSwitch.isChecked());
-        mResetStats.setOnPreferenceChangeListener(this);
-
-        mSeekBarPreference = (SeekBarPreference) findPreference("seek_bar");
-        mSeekBarPreference.setEnabled(mSmartChargingSwitch.isChecked());
   }
 
 
@@ -413,12 +377,6 @@ public class DeviceSettings extends PreferenceFragment implements
                 mTCP.setValue((String) value);
                 mTCP.setSummary(mTCP.getEntry());
                 FileUtils.setStringProp(TCP_SYSTEM_PROPERTY, (String) value);
-                break;
-
-            case PREF_CAMERA:
-                mCamera.setValue((String) value);
-               	mCamera.setSummary(mCamera.getEntry());
-                FileUtils.setStringProp(CAMERA_SYSTEM_PROPERTY, (String) value);
                 break;
 
             case PREF_SPECTRUM:
