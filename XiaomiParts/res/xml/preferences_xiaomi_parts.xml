@@ -37,6 +37,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="vibration"
         android:layout="@layout/pref_cat"
         android:title="@string/vibration_title">
@@ -50,6 +51,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="display"
         android:layout="@layout/pref_cat"
         android:title="@string/display_title">
@@ -83,6 +85,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="spectrum_profile"
         android:layout="@layout/pref_cat"
         android:title="@string/spectrum_profile_title">
@@ -100,6 +103,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:layout="@layout/pref_cat"
         android:title="@string/display_gestures">
 
@@ -113,6 +117,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="boost"
         android:layout="@layout/pref_cat"
         android:title="@string/game_turbo_mode_title">
@@ -175,6 +180,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="thermal"
         android:layout="@layout/pref_cat"
         android:title="@string/thermal_title">
@@ -249,13 +255,13 @@
 </PreferenceCategory>
 
     <PreferenceCategory
+    app:allowDividerAbove="false"
     android:key="selinux"
     android:layout="@layout/pref_cat"
     android:title="@string/selinux_category">
 
     <Preference
         android:summary="@string/selinux_explanation_summary"
-        android:layout="@layout/pref_cat"
         android:selectable="false"/>
 
     <SwitchPreference
@@ -276,6 +282,7 @@
 </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="speaker"
         android:layout="@layout/pref_cat"
         android:title="@string/speaker_category">
@@ -292,6 +299,7 @@
       </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="audio"
         android:layout="@layout/pref_cat"
         android:title="@string/audio_title">
@@ -361,6 +369,7 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        app:allowDividerAbove="false"
         android:key="usb_fastcharge"
         android:layout="@layout/pref_cat"
         android:title="@string/usb_fastcharge_title">
