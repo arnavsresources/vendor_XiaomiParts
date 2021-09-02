@@ -27,12 +27,12 @@ import android.content.SharedPreferences;
 import android.os.SELinux;
 import android.util.Log;
 import android.widget.Toast;
+import com.xiaomi.parts.preferences.VibratorStrengthPreference;
 
 import com.xiaomi.parts.R;
 
 import com.xiaomi.parts.kcal.Utils;
 import com.xiaomi.parts.ambient.SensorsDozeService;
-import com.xiaomi.parts.thermal.ThermalUtils;
 
 import java.io.IOException;
 import java.util.List;
@@ -102,6 +102,11 @@ public class BootReceiver extends BroadcastReceiver implements Utils {
 
         SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
 
+        VibratorStrengthPreference.restore(context);
+
+        FileUtils.setValue(DeviceSettings.BACKLIGHT_DIMMER_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PREF_BACKLIGHT_DIMMER, 0));
+
         if (Settings.Secure.getInt(context.getContentResolver(), PREF_ENABLED, 0) == 1) {
             FileUtils.setValue(KCAL_ENABLE, Settings.Secure.getInt(context.getContentResolver(),
                     PREF_ENABLED, 0));
@@ -128,6 +133,18 @@ public class BootReceiver extends BroadcastReceiver implements Utils {
                     PREF_HUE, HUE_DEFAULT));
         }
 
+        FileUtils.setValue(DeviceSettings.TORCH_1_BRIGHTNESS_PATH,
+                Settings.Secure.getInt(context.getContentResolver(),
+                        DeviceSettings.KEY_WHITE_TORCH_BRIGHTNESS, 100));
+        FileUtils.setValue(DeviceSettings.TORCH_2_BRIGHTNESS_PATH,
+                Settings.Secure.getInt(context.getContentResolver(),
+                        DeviceSettings.KEY_YELLOW_TORCH_BRIGHTNESS, 100));
+        FileUtils.setValue(DeviceSettings.MSM_THERMAL_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PERF_MSM_THERMAL, 0));
+        FileUtils.setValue(DeviceSettings.CORE_CONTROL_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PERF_CORE_CONTROL, 0));
+        FileUtils.setValue(DeviceSettings.VDD_RESTRICTION_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PERF_VDD_RESTRICTION, 0));
         int gain = Settings.Secure.getInt(context.getContentResolver(),
                 DeviceSettings.PREF_HEADPHONE_GAIN, 4);
         FileUtils.setValue(DeviceSettings.HEADPHONE_GAIN_PATH, gain + " " + gain);
@@ -135,12 +152,21 @@ public class BootReceiver extends BroadcastReceiver implements Utils {
                 DeviceSettings.PREF_MICROPHONE_GAIN, 0));
         FileUtils.setValue(DeviceSettings.EARPIECE_GAIN_PATH, Settings.Secure.getInt(context.getContentResolver(),
                 DeviceSettings.PREF_EARPIECE_GAIN, 0));
+        FileUtils.setValue(DeviceSettings.SPEAKER_GAIN_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PREF_SPEAKER_GAIN, 0));
+        FileUtils.setValue(DeviceSettings.HIGH_AUDIO_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.HIGH_PERF_AUDIO, 0));
+        FileUtils.setValue(DeviceSettings.USB_FASTCHARGE_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PREF_USB_FASTCHARGE, 0));
+        FileUtils.setValue(DeviceSettings.MSM_TOUCHBOOST_PATH, Settings.Secure.getInt(context.getContentResolver(),
+                DeviceSettings.PREF_MSM_TOUCHBOOST, 0));
+        // Dirac
+        context.startService(new Intent(context, DiracService.class));
+       // FileUtils.setValue(DeviceSettings.USB_FASTCHARGE_PATH, Settings.Secure.getInt(context.getContentResolver(),
+       //         DeviceSettings.PREF_USB_FASTCHARGE, 0));
 
        // Ambient
         context.startService(new Intent(context, SensorsDozeService.class));
-
-       // Thermal
-        ThermalUtils.initialize(context);
 
         boolean enabled = sharedPrefs.getBoolean(DeviceSettings.PREF_KEY_FPS_INFO, false);
         if (enabled) {
